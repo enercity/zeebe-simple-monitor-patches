@@ -13,6 +13,7 @@ import io.zeebe.monitor.entity.ProcessEntity;
 import io.zeebe.monitor.entity.ProcessInstanceEntity;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,8 +26,8 @@ public class InstancesVariableListControllerTest extends AbstractViewOrResourceT
   public void setUp() {
     when(processRepository.findAll(any(Pageable.class))).thenReturn(Page.empty());
     when(elementInstanceRepository.findByProcessInstanceKey(anyLong())).thenReturn(Page.empty());
-    when(variableRepository.findByProcessInstanceKey(anyLong(), any(Pageable.class)))
-        .thenReturn(Page.empty());
+    when(variableRepository.findByProcessInstanceKeyOrderByTimestampDescIdDesc(anyLong()))
+        .thenReturn(Collections.emptyList());
   }
 
   @Test
