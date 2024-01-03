@@ -1,6 +1,5 @@
 package io.zeebe.monitor.rest;
 
-import io.zeebe.monitor.ZeebeSimpleMonitorApp;
 import io.zeebe.monitor.entity.ElementInstanceEntity;
 import io.zeebe.monitor.entity.IncidentEntity;
 import io.zeebe.monitor.entity.ProcessInstanceEntity;
@@ -15,8 +14,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import jakarta.transaction.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -26,8 +23,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class InstancesVariableListController extends AbstractInstanceViewController {
-
-  private static final Logger LOG = LoggerFactory.getLogger(InstancesVariableListController.class);
 
   @Autowired private VariableRepository variableRepository;
 
@@ -59,24 +54,11 @@ public class InstancesVariableListController extends AbstractInstanceViewControl
       Map<String, Object> model,
       Pageable pageable,
       ProcessInstanceDto dto) {
-
-      LOG.debug("pageable: " + pageable.getPageSize());
-
     final Map<VariableTuple, List<VariableEntity>> variablesByScopeAndName =
-        variableRepository.findByProcessInstanceKey(instance.getKey(), pageable).stream()
+        variableRepository.findByProcessInstanceKeyOrderByTimestampDescIdDesc(instance.getKey()).stream()
             .collect(Collectors.groupingBy(v -> new VariableTuple(v.getScopeKey(), v.getName())));
     variablesByScopeAndName.forEach(
         (scopeKeyName, variables) -> {
-
-            variables.sort((o1, o2) -> {
-               var res = Long.compare(o1.getTimestamp(), o2.getTimestamp());
-               if (res == 0) {
-                   res = o1.getId().compareTo(o2.getId());
-                }
-
-               return -1 * res;
-            });
-
           final VariableEntry variableDto = new VariableEntry();
           final long scopeKey = scopeKeyName.scopeKey;
 
@@ -105,7 +87,7 @@ public class InstancesVariableListController extends AbstractInstanceViewControl
         });
 
     final long count = variableRepository.countByProcessInstanceKey(instance.getKey());
-    addPaginationToModel(model, pageable, count);
+    addPaginationToModel(model, Pageable.unpaged(), count);
   }
 
   private static class VariableTuple {
