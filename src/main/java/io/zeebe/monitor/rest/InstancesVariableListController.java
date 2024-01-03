@@ -87,7 +87,7 @@ public class InstancesVariableListController extends AbstractInstanceViewControl
         });
 
     final long count = variableRepository.countByProcessInstanceKey(instance.getKey());
-    addPaginationToModel(model, Pageable.unpaged(), count);
+    addPaginationToModel(model, Pageable.ofSize(Integer.MAX_VALUE), count);
   }
 
   private static class VariableTuple {
