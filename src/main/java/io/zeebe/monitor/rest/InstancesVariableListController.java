@@ -55,7 +55,7 @@ public class InstancesVariableListController extends AbstractInstanceViewControl
       Pageable pageable,
       ProcessInstanceDto dto) {
     final Map<VariableTuple, List<VariableEntity>> variablesByScopeAndName =
-        variableRepository.findByProcessInstanceKeyOrderByTimestampDescIdDesc(instance.getKey()).stream()
+        variableRepository.findByProcessInstanceKeyOrderByTimestampAscIdAsc(instance.getKey()).stream()
             .collect(Collectors.groupingBy(v -> new VariableTuple(v.getScopeKey(), v.getName())));
     variablesByScopeAndName.forEach(
         (scopeKeyName, variables) -> {

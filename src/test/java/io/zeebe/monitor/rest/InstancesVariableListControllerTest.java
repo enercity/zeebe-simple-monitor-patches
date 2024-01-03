@@ -26,7 +26,7 @@ public class InstancesVariableListControllerTest extends AbstractViewOrResourceT
   public void setUp() {
     when(processRepository.findAll(any(Pageable.class))).thenReturn(Page.empty());
     when(elementInstanceRepository.findByProcessInstanceKey(anyLong())).thenReturn(Page.empty());
-    when(variableRepository.findByProcessInstanceKeyOrderByTimestampDescIdDesc(anyLong()))
+    when(variableRepository.findByProcessInstanceKeyOrderByTimestampAscIdAsc(anyLong()))
         .thenReturn(Collections.emptyList());
   }
 
