@@ -76,12 +76,7 @@
     canvas.zoom('fit-viewport');
 
     {{#instance.elementInstances}}
-        try {
-            addElementInstanceCounter(overlays, '{{elementId}}', {{activeInstances}}, {{endedInstances}});
-        } catch (e) {
-            console.warn("cannot add markers to '{{elementId}}'", e);
-        }
-
+        addElementInstanceCounter(overlays, '{{elementId}}', {{activeInstances}}, {{endedInstances}});
     {{/instance.elementInstances}}
 
     {{#instance}}

@@ -603,31 +603,39 @@ function removeElementSelectedMarker(elementId) {
     canvas.removeMarker(elementId, 'bpmn-element-selected');
 }
 
-function addElementInstanceCounter(overlays, elemenId, active, ended) {
+function addElementInstanceCounter(overlays, elementId, active, ended) {
 
     var style = ((active > 0) ? "bpmn-badge-active" : "bpmn-badge-inactive");
 
-    overlays.add(elemenId, {
-        position: {
-            top: -25,
-            left: 0
-        },
-        html: '<span class="' + style + '" data-toggle="tooltip" data-placement="bottom" title="active | ended">'
-            + active + ' | ' + ended
-            + '</span>'
-    });
+    try {
+        overlays.add(elementId, {
+            position: {
+                top: -25,
+                left: 0
+            },
+            html: '<span class="' + style + '" data-toggle="tooltip" data-placement="bottom" title="active | ended">'
+                + active + ' | ' + ended
+                + '</span>'
+        });
+    } catch (e) {
+        console.warn("cannot add instance counter to a BPMN element", e);
+    }
 }
 
-function addIncidentMarker(overlays, elemenId) {
-    overlays.add(elemenId, {
-        position: {
-            top: -25,
-            right: 10
-        },
-        html: '<span class="bpmn-badge-incident" data-toggle="tooltip" data-placement="bottom" title="incident">'
-            + IMAGE_LIGHTNING
-            + '</span>'
-    });
+function addIncidentMarker(overlays, elementId) {
+    try {
+        overlays.add(elementId, {
+            position: {
+                top: -25,
+                right: 10
+            },
+            html: '<span class="bpmn-badge-incident" data-toggle="tooltip" data-placement="bottom" title="incident">'
+                + IMAGE_LIGHTNING
+                + '</span>'
+        });
+    } catch (e) {
+        console.warn("cannot add incident marker to a BPMN element", e);
+    }
 }
 
 function markSequenceFlow(elementRegistry, graphicsFactory, flow) {
