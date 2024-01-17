@@ -588,11 +588,19 @@ function loadDiagram(resource) {
 }
 
 function addElementInstanceActiveMarker(canvas, elementId) {
-    canvas.addMarker(elementId, 'bpmn-element-active');
+    try {
+        canvas.addMarker(elementId, 'bpmn-element-active');
+    } catch (e) {
+        console.warn("cannot add instance active marker to a BPMN element", e);
+    }
 }
 
 function addElementInstanceIncidentMarker(canvas, elementId) {
-    canvas.addMarker(elementId, 'bpmn-element-incident');
+    try {
+        canvas.addMarker(elementId, 'bpmn-element-incident');
+    } catch (e) {
+        console.warn("cannot add instance incident marker to a BPMN element", e);
+    }
 }
 
 function addElementSelectedMarker(elementId) {
