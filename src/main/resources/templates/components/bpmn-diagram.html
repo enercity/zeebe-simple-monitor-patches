@@ -67,42 +67,46 @@
 
   function addMarkers(viewer) {
   	var canvas = viewer.get('canvas');
-		var overlays = viewer.get('overlays');
-		var injector = viewer.get('injector');
-		var elementRegistry = injector.get('elementRegistry');
-		var graphicsFactory = injector.get('graphicsFactory');
+    var overlays = viewer.get('overlays');
+    var injector = viewer.get('injector');
+    var elementRegistry = injector.get('elementRegistry');
+    var graphicsFactory = injector.get('graphicsFactory');
 
-		// zoom to fit full viewport
-		canvas.zoom('fit-viewport');
+    // zoom to fit full viewport
+    canvas.zoom('fit-viewport');
 
-		{{#instance.elementInstances}}
-			addElementInstanceCounter(overlays, '{{elementId}}', {{activeInstances}}, {{endedInstances}});
-		{{/instance.elementInstances}}
+    {{#instance.elementInstances}}
+        try {
+            addElementInstanceCounter(overlays, '{{elementId}}', {{activeInstances}}, {{endedInstances}});
+        } catch (e) {
+            console.warn("cannot add markers to '{{elementId}}'", e);
+        }
+    {{/instance.elementInstances}}
 
-		{{#instance}}
+    {{#instance}}
 
-			{{#activeActivities}}
-				var elementId = "{{.}}";
-				addElementInstanceActiveMarker(canvas, elementId);
-			{{/activeActivities}}
+        {{#activeActivities}}
+            var elementId = "{{.}}";
+            addElementInstanceActiveMarker(canvas, elementId);
+        {{/activeActivities}}
 
-			{{#incidentActivities}}
-				var elementId = "{{.}}";
-				addElementInstanceIncidentMarker(canvas,elementId);
-			{{/incidentActivities}}
+        {{#incidentActivities}}
+            var elementId = "{{.}}";
+            addElementInstanceIncidentMarker(canvas,elementId);
+        {{/incidentActivities}}
 
-			{{#incidents}}
-				{{^isResolved}}
-					addIncidentMarker(overlays,'{{elementId}}');
-				{{/isResolved}}
-			{{/incidents}}
+        {{#incidents}}
+            {{^isResolved}}
+                addIncidentMarker(overlays,'{{elementId}}');
+            {{/isResolved}}
+        {{/incidents}}
 
-			{{#takenSequenceFlows}}
-				var flow = "{{.}}";
-				markSequenceFlow(elementRegistry, graphicsFactory, flow);
-			{{/takenSequenceFlows}}
+        {{#takenSequenceFlows}}
+            var flow = "{{.}}";
+            markSequenceFlow(elementRegistry, graphicsFactory, flow);
+        {{/takenSequenceFlows}}
 
-		{{/instance}}
+    {{/instance}}
   }
 
 </script>
