@@ -3,6 +3,8 @@ package io.zeebe.monitor.zeebe.protobuf.importers;
 import io.camunda.zeebe.protocol.Protocol;
 import io.camunda.zeebe.protocol.record.intent.Intent;
 import io.camunda.zeebe.protocol.record.intent.ProcessInstanceIntent;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import io.zeebe.exporter.proto.Schema;
 import io.zeebe.monitor.entity.ElementInstanceEntity;
 import io.zeebe.monitor.entity.ProcessEntity;
@@ -20,10 +22,13 @@ public class ProcessAndElementProtobufImporter {
   @Autowired private ProcessRepository processRepository;
   @Autowired private ProcessInstanceRepository processInstanceRepository;
   @Autowired private ElementInstanceRepository elementInstanceRepository;
+  @Autowired private MeterRegistry meterRegistry;
 
   @Autowired private ZeebeNotificationService notificationService;
 
+
   public void importProcess(final Schema.ProcessRecord record) {
+
     final int partitionId = record.getMetadata().getPartitionId();
 
     if (partitionId != Protocol.DEPLOYMENT_PARTITION) {
@@ -38,6 +43,8 @@ public class ProcessAndElementProtobufImporter {
     entity.setResource(record.getResource().toStringUtf8());
     entity.setTimestamp(record.getMetadata().getTimestamp());
     processRepository.save(entity);
+
+    Counter.builder("process.import").tag("processId", entity.getBpmnProcessId()).description("number of imported processes").register(meterRegistry).increment();
   }
 
   public void importProcessInstance(final Schema.ProcessInstanceRecord record) {
@@ -77,6 +84,8 @@ public class ProcessAndElementProtobufImporter {
       notificationService.sendCreatedProcessInstance(
           record.getProcessInstanceKey(), record.getProcessDefinitionKey());
 
+      Counter.builder("process_instance.activated").tag("processId", entity.getBpmnProcessId()).description("number of activated process instances").register(meterRegistry).increment();
+
     } else if (intent == ProcessInstanceIntent.ELEMENT_COMPLETED) {
       entity.setState("Completed");
       entity.setEnd(timestamp);
@@ -85,6 +94,8 @@ public class ProcessAndElementProtobufImporter {
       notificationService.sendEndedProcessInstance(
           record.getProcessInstanceKey(), record.getProcessDefinitionKey());
 
+      Counter.builder("process_instance.completed").tag("processId", entity.getBpmnProcessId()).description("number of completed process instances").register(meterRegistry).increment();
+
     } else if (intent == ProcessInstanceIntent.ELEMENT_TERMINATED) {
       entity.setState("Terminated");
       entity.setEnd(timestamp);
@@ -92,6 +103,8 @@ public class ProcessAndElementProtobufImporter {
 
       notificationService.sendEndedProcessInstance(
           record.getProcessInstanceKey(), record.getProcessDefinitionKey());
+
+      Counter.builder("process_instance.terminated").tag("processId", entity.getBpmnProcessId()).description("number of terminated process instances").register(meterRegistry).increment();
     }
   }
 
@@ -111,6 +124,8 @@ public class ProcessAndElementProtobufImporter {
       elementInstanceRepository.save(entity);
       notificationService.sendUpdatedProcessInstance(
           record.getProcessInstanceKey(), record.getProcessDefinitionKey());
+
+      Counter.builder("element_instance.import").tag("type", entity.getBpmnElementType()).description("number of imported element_instances").register(meterRegistry).increment();
     }
   }
 }
