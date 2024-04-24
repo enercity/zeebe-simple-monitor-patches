@@ -87,7 +87,7 @@ public class HazelcastImportService {
                   hazelcastConfig.setSequence(sequence);
                   hazelcastConfigRepository.save(hazelcastConfig);
 
-                  Gauge.builder("zeebe_hazelcast_ringbuffer_sequence", hazelcastConfig::getSequence).
+                  Gauge.builder("zeebe_monitor_importer_hazelcast_ringbuffer_sequence", hazelcastConfig::getSequence).
                           description("number of sequences read from Hazelcast's RingBugger").
                           register(meterRegistry);
                 });
