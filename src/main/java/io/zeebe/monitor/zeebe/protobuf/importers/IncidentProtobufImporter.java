@@ -42,13 +42,13 @@ public class IncidentProtobufImporter {
       entity.setCreated(timestamp);
       incidentRepository.save(entity);
 
-      Counter.builder("incident.created").description("number of created incidents").register(meterRegistry).increment();
+      Counter.builder("zeebe_incident").tag("action", "created").description("number of created incidents").register(meterRegistry).increment();
 
     } else if (intent == IncidentIntent.RESOLVED) {
       entity.setResolved(timestamp);
       incidentRepository.save(entity);
 
-      Counter.builder("incident.resolved").description("number of resolved incidents").register(meterRegistry).increment();
+      Counter.builder("zeebe_incident").tag("action", "resolved").description("number of resolved incidents").register(meterRegistry).increment();
     }
   }
 }
