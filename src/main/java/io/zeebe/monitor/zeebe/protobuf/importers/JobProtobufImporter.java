@@ -40,6 +40,6 @@ public class JobProtobufImporter {
     entity.setRetries(record.getRetries());
     jobRepository.save(entity);
 
-    Counter.builder("zeebe_monitor_importer_job").tag("action", "imported").tag("state", entity.getState()).description("number of processed jobs").register(meterRegistry).increment();
+    Counter.builder("zeebemonitor_importer_job").tag("action", "imported").tag("state", entity.getState()).description("number of processed jobs").register(meterRegistry).increment();
   }
 }

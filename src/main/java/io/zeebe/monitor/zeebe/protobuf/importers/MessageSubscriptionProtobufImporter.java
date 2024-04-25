@@ -43,7 +43,7 @@ public class MessageSubscriptionProtobufImporter {
     entity.setTimestamp(timestamp);
     messageSubscriptionRepository.save(entity);
 
-    Counter.builder("zeebe_monitor_importer_message_subscription").tag("action", "imported").tag("state", entity.getState()).description("number of processed message subscriptions").register(meterRegistry).increment();
+    Counter.builder("zeebemonitor_importer_message_subscription").tag("action", "imported").tag("state", entity.getState()).description("number of processed message subscriptions").register(meterRegistry).increment();
   }
 
   public void importMessageStartEventSubscription(
@@ -72,7 +72,7 @@ public class MessageSubscriptionProtobufImporter {
     entity.setTimestamp(timestamp);
     messageSubscriptionRepository.save(entity);
 
-    Counter.builder("zeebe_monitor_importer_message_subscription").tag("action", "imported").tag("state", entity.getState()).description("number of processed message start events").register(meterRegistry).increment();
+    Counter.builder("zeebemonitor_importer_message_subscription").tag("action", "imported").tag("state", entity.getState()).description("number of processed message start events").register(meterRegistry).increment();
   }
 
   private String generateId() {

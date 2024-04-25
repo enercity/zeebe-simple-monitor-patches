@@ -39,6 +39,6 @@ public class MessageProtobufImporter {
     entity.setTimestamp(timestamp);
     messageRepository.save(entity);
 
-    Counter.builder("zeebe_monitor_importer_message").tag("action", "imported").tag("state", intent.name().toLowerCase()).description("number of processed messages").register(meterRegistry).increment();
+    Counter.builder("zeebemonitor_importer_message").tag("action", "imported").tag("state", intent.name().toLowerCase()).description("number of processed messages").register(meterRegistry).increment();
   }
 }
