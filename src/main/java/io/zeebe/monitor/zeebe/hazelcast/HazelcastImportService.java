@@ -1,9 +1,8 @@
 package io.zeebe.monitor.zeebe.hazelcast;
 
 import com.hazelcast.core.HazelcastInstance;
-import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
 import io.zeebe.exporter.proto.Schema;
 import io.zeebe.hazelcast.connect.java.ZeebeHazelcast;
 import io.zeebe.monitor.entity.HazelcastConfig;
@@ -85,19 +84,10 @@ public class HazelcastImportService {
             .addErrorListener(errorImporter::importError)
             .postProcessListener(
                 sequence -> {
-                  long prev = hazelcastConfig.getSequence();
-
                   hazelcastConfig.setSequence(sequence);
                   hazelcastConfigRepository.save(hazelcastConfig);
 
-                  Counter.builder("zeebemonitor_importer_ringbuffer_elements").
-                          description("number of sequences in Hazelcast's RingBuffer").
-                          register(meterRegistry).
-                          increment(sequence - prev);
-
-                  Gauge.builder("zeebemonitor_importer_ringbuffer_elements_read", () -> sequence).
-                          description("number of sequences that have been read from Hazelcast's RingBuffer").
-                          register(meterRegistry);
+                  meterRegistry.more().counter("zeebemonitor_importer_ringbuffer_sequence", Tags.empty(), sequence);
                 });
 
     if (hazelcastConfig.getSequence() >= 0) {
