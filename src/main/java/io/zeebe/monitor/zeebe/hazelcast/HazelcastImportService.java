@@ -84,14 +84,13 @@ public class HazelcastImportService {
             .addErrorListener(errorImporter::importError)
             .postProcessListener(
                 sequence -> {
-                  long prev = hazelcastConfig.getSequence();
                   hazelcastConfig.setSequence(sequence);
                   hazelcastConfigRepository.save(hazelcastConfig);
 
-                  Counter.builder("zeebe_monitor_importer_hazelcast_ringbuffer_sequence").
-                          description("number of sequences read from Hazelcast's RingBugger").
+                  Counter.builder("zeebemonitor_importer_hazelcast_ringbuffer_elements_read").
+                          description("number of sequences read from Hazelcast's RingBuffer").
                           register(meterRegistry).
-                          increment(sequence - prev);
+                          increment(sequence);
                 });
 
     if (hazelcastConfig.getSequence() >= 0) {
