@@ -93,9 +93,9 @@ public class HazelcastImportService {
                   Counter.builder("zeebemonitor_importer_ringbuffer_elements").
                           description("number of sequences in Hazelcast's RingBuffer").
                           register(meterRegistry).
-                          increment(sequence);
+                          increment(sequence - prev);
 
-                  Gauge.builder("zeebemonitor_importer_ringbuffer_elements_read", () -> sequence - prev).
+                  Gauge.builder("zeebemonitor_importer_ringbuffer_elements_read", () -> sequence).
                           description("number of sequences that have been read from Hazelcast's RingBuffer").
                           register(meterRegistry);
                 });
