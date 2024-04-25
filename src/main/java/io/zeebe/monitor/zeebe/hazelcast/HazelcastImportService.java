@@ -90,13 +90,13 @@ public class HazelcastImportService {
                   hazelcastConfig.setSequence(sequence);
                   hazelcastConfigRepository.save(hazelcastConfig);
 
-                  Counter.builder("zeebemonitor_importer_hazelcast_ringbuffer_elements").
-                          description("number of sequences read from Hazelcast's RingBuffer").
+                  Counter.builder("zeebemonitor_importer_ringbuffer_elements").
+                          description("number of sequences in Hazelcast's RingBuffer").
                           register(meterRegistry).
                           increment(sequence);
 
-                  Gauge.builder("zeebemonitor_importer_hazelcast_ringbuffer_elements_read", () -> sequence - prev).
-                          description("number of sequences read from Hazelcast's RingBuffer").
+                  Gauge.builder("zeebemonitor_importer_ringbuffer_elements_read", () -> sequence - prev).
+                          description("number of sequences that have been read from Hazelcast's RingBuffer").
                           register(meterRegistry);
                 });
 
