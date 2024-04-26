@@ -11,12 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class HazelcastConfigService {
 
-  @Autowired private HazelcastConfigRepository hazelcastConfigRepository;
-  @Autowired private MeterRegistry meterRegistry;
+  private final HazelcastConfigRepository hazelcastConfigRepository;
+  private final Counter sequenceCounter;
+
+  @Autowired
+  public HazelcastConfigService(HazelcastConfigRepository hazelcastConfigRepository, MeterRegistry meterRegistry) {
+    this.hazelcastConfigRepository = hazelcastConfigRepository;
+
+    sequenceCounter = Counter.builder("zeebemonitor_importer_ringbuffer_sequences_read").
+            description("number of items read from Hazelcast's ringbuffer (sequence counter)").
+            register(meterRegistry);
+  }
 
   public long getLastSequenceNumber() {
-    return
-        getHazelcastConfig().getSequence();
+    return getHazelcastConfig().getSequence();
   }
 
   @Transactional
@@ -29,10 +37,7 @@ public class HazelcastConfigService {
 
     hazelcastConfigRepository.save(config);
 
-    Counter.builder("zeebemonitor_importer_ringbuffer_sequences_read").
-            description("number of items read from Hazelcast's ringbuffer (sequence counter)").
-            register(meterRegistry).
-            increment(sequence - prev);
+    sequenceCounter.increment(sequence - prev);
   }
 
   private HazelcastConfig getHazelcastConfig() {
