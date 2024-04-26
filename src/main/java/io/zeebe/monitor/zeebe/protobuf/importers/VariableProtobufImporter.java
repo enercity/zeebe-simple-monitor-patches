@@ -27,7 +27,7 @@ public class VariableProtobufImporter {
       newVariable.setState(record.getMetadata().getIntent().toLowerCase());
       variableRepository.save(newVariable);
 
-      Counter.builder("zeebemonitor_importer_variable").tag("action", "imported").tag("state", newVariable.getState()).description("number of processed variables").register(meterRegistry).increment();
+      Counter.builder("zeebemonitor_importer_variable").tag("state", newVariable.getState()).description("number of processed variables").register(meterRegistry).increment();
     }
   }
 }

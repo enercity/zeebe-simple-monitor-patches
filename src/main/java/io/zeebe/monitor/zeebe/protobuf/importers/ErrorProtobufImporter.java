@@ -36,6 +36,6 @@ public class ErrorProtobufImporter {
 
     errorRepository.save(entity);
 
-    Counter.builder("zeebemonitor_importer_error_imported").description("number of processed errors").register(meterRegistry).increment();
+    Counter.builder("zeebemonitor_importer_error").description("number of processed errors").register(meterRegistry).increment();
   }
 }

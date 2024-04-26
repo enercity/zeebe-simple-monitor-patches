@@ -45,6 +45,6 @@ public class TimerProtobufImporter {
     entity.setTimestamp(timestamp);
     timerRepository.save(entity);
 
-    Counter.builder("zeebemonitor_importer_timer").tag("action", "imported").tag("state", entity.getState()).description("number of processed timers").register(meterRegistry).increment();
+    Counter.builder("zeebemonitor_importer_timer").description("number of processed timers").register(meterRegistry).increment();
   }
 }

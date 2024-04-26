@@ -44,7 +44,7 @@ public class ProcessAndElementProtobufImporter {
     entity.setTimestamp(record.getMetadata().getTimestamp());
     processRepository.save(entity);
 
-    Counter.builder("zeebemonitor_importer_process").tag("action", "imported").description("number of processed processes").register(meterRegistry).increment();
+    Counter.builder("zeebemonitor_importer_process").description("number of processed processes").register(meterRegistry).increment();
   }
 
   public void importProcessInstance(final Schema.ProcessInstanceRecord record) {
@@ -125,7 +125,7 @@ public class ProcessAndElementProtobufImporter {
       notificationService.sendUpdatedProcessInstance(
           record.getProcessInstanceKey(), record.getProcessDefinitionKey());
 
-      Counter.builder("zeebemonitor_importer_element_instance").tag("action", "imported").tag("type", entity.getBpmnElementType()).description("number of processed element_instances").register(meterRegistry).increment();
+      Counter.builder("zeebemonitor_importer_element_instance").description("number of processed element_instances").register(meterRegistry).increment();
     }
   }
 }
