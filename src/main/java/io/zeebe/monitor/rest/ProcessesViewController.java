@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import jakarta.validation.constraints.*;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -62,7 +64,7 @@ public class ProcessesViewController extends AbstractViewController {
   }
 
   @GetMapping("/views/processes")
-  public String processList(final Map<String, Object> model, final Pageable pageable, @RequestParam("bpmnProcessId") Optional<String> bpmnProcessId) {
+  public String processList(final Map<String, Object> model, final Pageable pageable, @RequestParam("bpmnProcessId") @Size(min = 3) Optional<String> bpmnProcessId) {
 
     if (bpmnProcessId.isPresent()) {
       final List<ProcessDto> processes = new ArrayList<>();
