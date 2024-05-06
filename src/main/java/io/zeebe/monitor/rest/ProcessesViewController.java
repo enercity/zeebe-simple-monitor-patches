@@ -64,7 +64,7 @@ public class ProcessesViewController extends AbstractViewController {
   }
 
   @GetMapping("/views/processes")
-  public String processList(final Map<String, Object> model, final Pageable pageable, @RequestParam("bpmnProcessId") @Size(min = 3) Optional<String> bpmnProcessId) {
+  public String processList(final Map<String, Object> model, final Pageable pageable, @RequestParam("bpmnProcessId") Optional<@Size(min = 3) String> bpmnProcessId) {
 
     if (bpmnProcessId.isPresent()) {
       final List<ProcessDto> processes = new ArrayList<>();
