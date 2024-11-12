@@ -20,14 +20,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <zeebe.version>8.3.4</zeebe.version>
-        <version.zeebe.spring>8.4.1</version.zeebe.spring>
+        <zeebe.version>8.5.9</zeebe.version>
+        <version.zeebe.spring>8.5.9</version.zeebe.spring>
         <hazelcast.exporter.version>1.4.0</hazelcast.exporter.version>
-        <redis.exporter.version>0.9.10</redis.exporter.version>
+        <redis.exporter.version>1.0.1</redis.exporter.version>
 
         <querydsl.version>5.0.0</querydsl.version>
 
-        <spring.boot.version>3.2.2</spring.boot.version>
+        <spring.boot.version>3.2.5</spring.boot.version>
         <!-- pin Hazelcast version because of spring-boot-dependencies -->
         <version.hazelcast>5.3.6</version.hazelcast>
 
@@ -96,8 +96,8 @@
 
         <!-- spring deps-->
         <dependency>
-            <groupId>io.camunda.spring</groupId>
-            <artifactId>spring-boot-starter-camunda</artifactId>
+            <groupId>io.camunda</groupId>
+            <artifactId>spring-boot-starter-camunda-sdk</artifactId>
             <version>${version.zeebe.spring}</version>
             <exclusions>
                 <exclusion>
