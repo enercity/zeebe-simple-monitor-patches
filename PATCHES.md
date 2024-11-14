@@ -128,5 +128,6 @@ This process provides us with:
 - `feature/auto-delete-old-process-instances` - delete old process instances from database.
 - `feature/importer-metrics` - Collect metrics about the import process
 - `feature/search-processes` - server side search for processes
+- `feature/apt-plugin-deprecated` - fix for the deprecated apt-maven-plugin (incompatible with JDK 23)
 - `feature/compat-zeebe-8.5.9` - update dependencies to current Zeebe 8.5.9
 - `feature/redis-compat-8.5.9` - integrate Redis on top of Zeebe 8.5.9
