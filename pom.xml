@@ -31,6 +31,8 @@
         <!-- pin Hazelcast version because of spring-boot-dependencies -->
         <version.hazelcast>5.3.6</version.hazelcast>
 
+        <version.hibernate.validator>8.0.1.Final</version.hibernate.validator>
+
         <!-- release parent settings -->
         <version.java>17</version.java>
         <java.version>${version.java}</java.version>
@@ -187,6 +189,12 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${version.hibernate.validator}</version>
         </dependency>
 
         <dependency>
@@ -510,6 +518,11 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
+        </repository>
+        <repository>
+            <id>maven_central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
     </repositories>
 
