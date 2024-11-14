@@ -127,7 +127,6 @@ This process provides us with:
 
 - `feature/auto-delete-old-process-instances` - delete old process instances from database.
 - `feature/importer-metrics` - Collect metrics about the import process
-- `feature/simple-search-input-to-processView` - a simple client-based view about processes
-- `feature/search-processes` - server side search for processes, replaced `feature/simple-search-input-to-processView`
+- `feature/search-processes` - server side search for processes
 - `feature/compat-zeebe-8.5.9` - update dependencies to current Zeebe 8.5.9
 - `feature/redis-compat-8.5.9` - integrate Redis on top of Zeebe 8.5.9
