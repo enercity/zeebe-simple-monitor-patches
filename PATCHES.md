@@ -3,7 +3,7 @@
 >
 > It describes our process to patch the original source.
 
-> [!INFORMATION]
+> [!INFO]
 > Please update the [Existing patches](#existing-patches) section when creating new patches.
 
 <!-- TOC -->
