@@ -77,6 +77,12 @@
                 <groupId>io.zeebe.hazelcast</groupId>
                 <artifactId>zeebe-hazelcast-connector</artifactId>
                 <version>${hazelcast.exporter.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.zeebe</groupId>
+                        <artifactId>zeebe-exporter-protobuf</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>

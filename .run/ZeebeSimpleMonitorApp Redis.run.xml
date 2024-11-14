@@ -1,0 +1,42 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ZeebeSimpleMonitorApp Redis" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="postgres" />
+    <envs>
+      <env name="SERVER_MAX_HTTP_REQUEST_HEADER_SIZE" value="30KB" />
+      <env name="SPRING_DATASOURCE_DRIVER_CLASS_NAME" value="org.postgresql.Driver" />
+      <env name="SPRING_DATASOURCE_PASSWORD" value="mysecretpassword" />
+      <env name="SPRING_DATASOURCE_URL" value="jdbc:postgresql://127.0.0.1:5432/postgres" />
+      <env name="SPRING_DATASOURCE_USERNAME" value="postgres" />
+      <env name="SPRING_JPA_HIBERNATE_DDL_AUTO" value="update" />
+      <env name="SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT" value="org.hibernate.dialect.PostgreSQLDialect" />
+      <env name="SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL" value="true" />
+      <env name="SPRING_JPA_SHOW_SQL" value="true" />
+      <env name="ZEEBE_CLIENT_BROKER_GATEWAY_ADDRESS" value="127.0.0.1:26500" />
+      <env name="ZEEBE_CLIENT_BROKER_GRPC_ADDRESS" value="http://127.0.0.1:26500" />
+      <env name="ZEEBE_CLIENT_BROKER_REST_ADDRESS" value="http://127.0.0.1:8080" />
+      <env name="ZEEBE_CLIENT_WORKER_REDIS_CONNECTION" value="redis://localhost:6379" />
+      <env name="ZEEBEIMPORTER" value="redis" />
+    </envs>
+    <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+    <module name="zeebe-simple-monitor" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.zeebe.monitor.ZeebeSimpleMonitorApp" />
+    <extension name="net.ashald.envfile">
+      <option name="IS_ENABLED" value="false" />
+      <option name="IS_SUBST" value="false" />
+      <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+      <option name="IS_IGNORE_MISSING_FILES" value="false" />
+      <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+      <ENTRIES>
+        <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+      </ENTRIES>
+    </extension>
+    <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+      <option name="credential" />
+      <option name="region" />
+      <option name="useCurrentConnection" value="false" />
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
