@@ -3,7 +3,7 @@
 >
 > It describes our process to patch the original source.
 
-> [!INFO]
+> [!NOTE]
 > Please update the [Existing patches](#existing-patches) section when creating new patches.
 
 <!-- TOC -->
@@ -40,6 +40,9 @@ This repository maintains
   - so upon new releases, they can be rebased or recreated on top of the new release branch
 - branches on top of the official release branches, that merges the features,
   e.g. https://github.com/enercity/zeebe-simple-monitor-patches/tree/release/v2.7.2-with-patches
+
+> [!TIP]
+> You must be able to check out every branch and run it locally.
 
 See this example:
 
