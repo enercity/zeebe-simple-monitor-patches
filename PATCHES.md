@@ -61,21 +61,16 @@ title: Tree of Branches (example, 'main' = upstream)
 ---
 %%{init: { 'gitGraph': {'showCommitLabel': false}} }%%
 gitGraph
-# simulate some work on upstream, followed by an official release
   commit
   commit
   commit tag: "v2.7.2"
 
-# create a branch on our side on that tag 
   branch release/official/v2.7.2
   commit tag: "v2.7.2"
 
-# additional work happen upstream.
   checkout main
   commit
 
-# now create some feature branches on top of the official release
-# and commit some work.
   checkout release/official/v2.7.2
   branch feature/auto-delete-old-process-instances
   commit
@@ -84,16 +79,12 @@ gitGraph
   branch feature/search-processes
   commit
 
-# now create a release branch for us on top of the official release 
   checkout release/official/v2.7.2
   branch release/v2.7.2-with-patches
-# merge the feature patches
   merge feature/auto-delete-old-process-instances
   merge feature/search-processes
-# create a release and deploy.
   commit tag: "v1.10.0 (example)"
 
-# now create another release branch for us to play around with new features. 
   checkout release/official/v2.7.2
   branch feature/redis-compat-8.5.9
   commit
@@ -101,7 +92,6 @@ gitGraph
   checkout release/v2.7.2-with-patches
   branch release/v2.7.2-with-patches-for-redis
   merge feature/redis-compat-8.5.9
-# deploy to DEV, only.
   commit tag: "v2.0.0-dev0 (example)"
 ```  
 
