@@ -17,6 +17,7 @@ package io.zeebe.monitor.repository;
 
 import io.zeebe.monitor.entity.JobEntity;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,4 +36,6 @@ public interface JobRepository
   Page<JobEntity> findByStateNotIn(Collection<String> state, Pageable pageable);
 
   long countByStateNotIn(Collection<String> state);
+
+  void deleteByProcessInstanceKeyIn(List<Long> keys);
 }

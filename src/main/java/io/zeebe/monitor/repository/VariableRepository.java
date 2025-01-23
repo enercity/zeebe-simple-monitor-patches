@@ -24,4 +24,6 @@ public interface VariableRepository extends CrudRepository<VariableEntity, Strin
   List<VariableEntity> findByProcessInstanceKeyOrderByTimestampAscIdAsc(long processInstanceKey);
 
   long countByProcessInstanceKey(long processInstanceKey);
+
+  void deleteByProcessInstanceKeyIn(List<Long> keys);
 }
