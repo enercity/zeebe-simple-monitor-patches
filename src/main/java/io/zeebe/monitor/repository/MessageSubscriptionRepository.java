@@ -40,4 +40,6 @@ public interface MessageSubscriptionRepository
 
   List<MessageSubscriptionEntity> findByProcessDefinitionKeyAndProcessInstanceKeyIsNull(
       long processDefinitionKey);
+
+  void deleteByProcessInstanceKeyIn(List<Long> keys);
 }
