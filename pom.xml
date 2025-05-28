@@ -89,6 +89,26 @@
                 <version>2.3.232</version>
             </dependency>
 
+            <!--
+            Fix CVE-2025-27820
+            httpclient is a transitive dependency via spring-boot-starter-camunda-sdk
+            -->
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
+                <version>5.4.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5-cache</artifactId>
+                <version>5.4.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5-fluent</artifactId>
+                <version>5.4.3</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
