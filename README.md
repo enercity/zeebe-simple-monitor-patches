@@ -125,21 +125,23 @@ This process provides us with:
 
 # Existing patches
 
-These patches may be applied on top of the named "target release branches". The features are included in later releases
+These patches may be applied on top of the named "target release branches." The features are included in later releases
 [upstream](https://github.com/camunda-community-hub/zeebe-simple-monitor/releases).
 
 | Branch                                      | Status     | Description                                                        | Target release branch <br/>`release/...-with-patches` |
 |---------------------------------------------|------------|--------------------------------------------------------------------|-------------------------------------------------------|
 | `feature/auto-delete-old-process-instances` | active     | delete old process instances from database.                        | v2.7.2, v2.8.1, v2.9.0                                |
-| obsolete: `feature/importer-metrics`        | obsolete   | Collect metrics about the import process                           | v2.7.2                                                |
-| obsolete: `feature/search-processes`        | obsolete   | server side search for processes                                   | v2.7.2                                                |
-| obsolete: `feature/apt-plugin-deprecated`   | obsolete   | fix for the deprecated apt-maven-plugin (incompatible with JDK 23) | v2.8.1                                                |
-| obsolete: `feature/compat-zeebe-8.5.9`      | obsolete   | update dependencies to current Zeebe 8.5.9                         | v2.8.1                                                |
+| `feature/importer-metrics`                  | obsolete   | Collect metrics about the import process                           | v2.7.2                                                |
+| `feature/search-processes`                  | obsolete   | server side search for processes                                   | v2.7.2                                                |
+| `feature/apt-plugin-deprecated`             | obsolete   | fix for the deprecated apt-maven-plugin (incompatible with JDK 23) | v2.8.1                                                |
+| `feature/compat-zeebe-8.5.9`                | obsolete   | update dependencies to current Zeebe 8.5.9                         | v2.8.1                                                |
 | `feature/redis-compat-8.5.9`                | unfinished | integrate Redis on top of Zeebe 8.5.9                              | v2.8.1                                                |
 | `feature/fix-CVE-2025-27820`                | active     | updates httpclient                                                 | v2.9.0                                                |
 
-Features marked as "obsolete" have been included upstream, meanwhile. Features marked as "active" still need to be
-integrated into our own "with-patches" releases. Features marked as "unfinished" are prood-of-concepts.
+Features marked as "obsolete" have been included upstream, meanwhile. See the "target release branches" as well.
+
+Features marked as "active" still need to be integrated into our own "with-patches" releases. Features marked as "
+unfinished" are prood-of-concepts.
 
 # Further reading
 
