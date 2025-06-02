@@ -39,6 +39,7 @@ spring:
         default-page-size: 10
     auto-delete-data-enabled: false
     auto-delete-data-after-days: 30
+    auto-delete-data-numer-of-instances: 30
 
   kafka:
     template:

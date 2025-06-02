@@ -33,8 +33,6 @@ public class AutomaticDataCleaner {
 
   private static final Logger LOG = LoggerFactory.getLogger(ExceptionHandler.class);
 
-  private static final int NO_OF_INSTANCES_TO_DELETE = 32;
-
   @Autowired private ProcessInstanceRepository processInstanceRepository;
   @Autowired private ElementInstanceRepository elementInstanceRepository;
   @Autowired private VariableRepository variableRepository;
@@ -50,6 +48,9 @@ public class AutomaticDataCleaner {
   @Value("${spring.data.auto-delete-data-after-days}")
   private Integer autoDeleteDataAfterDays;
 
+  @Value("${spring.data.auto-delete-data-numer-of-instances}")
+  private Integer numberOfInstancesToDelete;
+
   @Scheduled(fixedDelay = 60 * 1000L)
   @Transactional
   public void autoDeleteOldInstanceData() {
@@ -62,7 +63,7 @@ public class AutomaticDataCleaner {
     LocalDateTime ts = LocalDateTime.now().minus(autoDeleteDataAfterDays, DAYS);
     ZoneOffset localZoneOffset = ZoneOffset.systemDefault().getRules().getOffset(ts);
     long ts_microSeconds = ts.toEpochSecond(localZoneOffset) * 1000;
-    Pageable p = Pageable.ofSize(NO_OF_INSTANCES_TO_DELETE);
+    Pageable p = Pageable.ofSize(numberOfInstancesToDelete);
     Page<ProcessInstanceEntity> instances =
         processInstanceRepository.findByStartLessThan(ts_microSeconds, p);
 
