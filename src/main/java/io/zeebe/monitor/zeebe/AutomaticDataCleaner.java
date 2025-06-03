@@ -1,7 +1,5 @@
 package io.zeebe.monitor.zeebe;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 import io.zeebe.monitor.entity.ProcessInstanceEntity;
 import io.zeebe.monitor.repository.ElementInstanceRepository;
 import io.zeebe.monitor.repository.ErrorRepository;
@@ -26,13 +24,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Component
 public class AutomaticDataCleaner {
 
   private static final Logger LOG = LoggerFactory.getLogger(ExceptionHandler.class);
-
-  private static final int NO_OF_INSTANCES_TO_DELETE = 32;
 
   @Autowired private ProcessInstanceRepository processInstanceRepository;
   @Autowired private ElementInstanceRepository elementInstanceRepository;
@@ -49,6 +46,9 @@ public class AutomaticDataCleaner {
   @Value("${spring.data.auto-delete-data-after-days}")
   private Integer autoDeleteDataAfterDays;
 
+  @Value("${spring.data.auto-delete-data-number-of-instances}")
+  private Integer numberOfInstancesToDelete;
+
   @Scheduled(fixedDelay = 60 * 1000L)
   @Transactional
   public void autoDeleteOldInstanceData() {
@@ -61,32 +61,43 @@ public class AutomaticDataCleaner {
     LocalDateTime ts = LocalDateTime.now().minus(autoDeleteDataAfterDays, DAYS);
     ZoneOffset localZoneOffset = ZoneOffset.systemDefault().getRules().getOffset(ts);
     long ts_microSeconds = ts.toEpochSecond(localZoneOffset) * 1000;
-    Pageable p = Pageable.ofSize(NO_OF_INSTANCES_TO_DELETE);
+    Pageable p = Pageable.ofSize(numberOfInstancesToDelete);
     Page<ProcessInstanceEntity> instances =
         processInstanceRepository.findByStartLessThan(ts_microSeconds, p);
 
     List<Long> keys =
         instances.stream().map(ProcessInstanceEntity::getKey).collect(Collectors.toList());
 
-    if (keys.size() > 0) {
-      LOG.info("Deleting (house keeping) " + keys.size() + " process instances. [START]");
+    if (!keys.isEmpty()) {
+      LOG.info("Deleting (house keeping) {} process instances. [START]", keys.size());
       long start = System.currentTimeMillis();
+
+      LOG.info("... deleting (house keeping) {} element instances", keys.size());
       elementInstanceRepository.deleteByProcessInstanceKeyIn(keys);
+
+      LOG.info("... deleting (house keeping) {} variables", keys.size());
       variableRepository.deleteByProcessInstanceKeyIn(keys);
+
+      LOG.info("... deleting (house keeping) {} jobs", keys.size());
       jobRepository.deleteByProcessInstanceKeyIn(keys);
+
+      LOG.info("... deleting (house keeping) {} incidents", keys.size());
       incidentRepository.deleteByProcessInstanceKeyIn(keys);
+
+      LOG.info("... deleting (house keeping) {} message subscriptions", keys.size());
       messageSubscriptionRepository.deleteByProcessInstanceKeyIn(keys);
+
+      LOG.info("... deleting (house keeping) {} timers", keys.size());
       timerRepository.deleteByProcessInstanceKeyIn(keys);
+
+      LOG.info("... deleting (house keeping) {} errors", keys.size());
       errorRepository.deleteByProcessInstanceKeyIn(keys);
+
+      LOG.info("... deleting (house keeping) {} process instances", keys.size());
       processInstanceRepository.deleteByKeyIn(keys);
 
       long end = System.currentTimeMillis();
-      LOG.info(
-          "Deleting (house keeping) "
-              + keys.size()
-              + " process instances. [Done. took "
-              + (end - start) / 1000
-              + "s]");
+      LOG.info("Deleting (house keeping) {} process instances. [Done. took {}s]", keys.size(), (end - start) / 1000);
     }
   }
 

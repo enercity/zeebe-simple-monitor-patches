@@ -19,11 +19,14 @@ import io.zeebe.monitor.entity.TimerEntity;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface TimerRepository
-    extends PagingAndSortingRepository<TimerEntity, Long>, CrudRepository<TimerEntity, Long> {
+        extends PagingAndSortingRepository<TimerEntity, Long>, CrudRepository<TimerEntity, Long> {
 
   Page<TimerEntity> findByProcessInstanceKey(Long processInstanceKey, Pageable pageable);
 
@@ -31,5 +34,7 @@ public interface TimerRepository
 
   List<TimerEntity> findByProcessDefinitionKeyAndProcessInstanceKeyIsNull(Long processInstanceKey);
 
-  void deleteByProcessInstanceKeyIn(List<Long> keys);
+  @Modifying
+  @Query(value = "DELETE FROM TIMER e WHERE e.processInstanceKey IN (:keys)")
+  void deleteByProcessInstanceKeyIn(@Param("keys") List<Long> keys);
 }
