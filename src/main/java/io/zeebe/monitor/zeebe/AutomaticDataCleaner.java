@@ -1,5 +1,7 @@
 package io.zeebe.monitor.zeebe;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import io.zeebe.monitor.entity.ProcessInstanceEntity;
 import io.zeebe.monitor.repository.ElementInstanceRepository;
 import io.zeebe.monitor.repository.ErrorRepository;
@@ -24,7 +26,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import static java.time.temporal.ChronoUnit.DAYS;
 
 @Component
 public class AutomaticDataCleaner {
