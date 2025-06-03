@@ -10,6 +10,11 @@ import io.zeebe.monitor.repository.ProcessInstanceRepository;
 import io.zeebe.monitor.repository.TimerRepository;
 import io.zeebe.monitor.repository.VariableRepository;
 import io.zeebe.monitor.rest.ExceptionHandler;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.zip.Adler32;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +24,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.zip.Adler32;
-
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Component
@@ -48,7 +46,7 @@ public class AutomaticDataCleaner {
   @Value("${spring.data.auto-delete-data-after-days}")
   private Integer autoDeleteDataAfterDays;
 
-  @Value("${spring.data.auto-delete-data-numer-of-instances}")
+  @Value("${spring.data.auto-delete-data-number-of-instances}")
   private Integer numberOfInstancesToDelete;
 
   @Scheduled(fixedDelay = 60 * 1000L)

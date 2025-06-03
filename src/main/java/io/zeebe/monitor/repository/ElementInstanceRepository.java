@@ -17,11 +17,16 @@ package io.zeebe.monitor.repository;
 
 import io.zeebe.monitor.entity.ElementInstanceEntity;
 import java.util.List;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface ElementInstanceRepository extends CrudRepository<ElementInstanceEntity, String> {
 
   Iterable<ElementInstanceEntity> findByProcessInstanceKey(long processInstanceKey);
 
-  void deleteByProcessInstanceKeyIn(List<Long> keys);
+  @Modifying
+  @Query(value = "DELETE FROM ELEMENT_INSTANCE e WHERE e.processInstanceKey IN (:keys)")
+  void deleteByProcessInstanceKeyIn(@Param("keys") List<Long> keys);
 }

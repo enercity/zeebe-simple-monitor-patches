@@ -17,13 +17,21 @@ package io.zeebe.monitor.repository;
 
 import io.zeebe.monitor.entity.IncidentEntity;
 import java.util.List;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
-public interface IncidentRepository extends PagingAndSortingRepository<IncidentEntity, Long>, QuerydslPredicateExecutor<IncidentEntity>, CrudRepository<IncidentEntity, Long> {
+public interface IncidentRepository
+        extends PagingAndSortingRepository<IncidentEntity, Long>,
+        QuerydslPredicateExecutor<IncidentEntity>,
+        CrudRepository<IncidentEntity, Long> {
 
   Iterable<IncidentEntity> findByProcessInstanceKey(long processInstanceKey);
 
-  void deleteByProcessInstanceKeyIn(List<Long> keys);
+  @Modifying
+  @Query(value = "DELETE FROM INCIDENT e WHERE e.processInstanceKey IN (:keys)")
+  void deleteByProcessInstanceKeyIn(@Param("keys") List<Long> keys);
 }

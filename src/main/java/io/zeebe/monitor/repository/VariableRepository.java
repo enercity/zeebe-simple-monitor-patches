@@ -16,9 +16,11 @@
 package io.zeebe.monitor.repository;
 
 import io.zeebe.monitor.entity.VariableEntity;
-import org.springframework.data.repository.CrudRepository;
-
 import java.util.List;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface VariableRepository extends CrudRepository<VariableEntity, String> {
 
@@ -26,5 +28,7 @@ public interface VariableRepository extends CrudRepository<VariableEntity, Strin
 
   long countByProcessInstanceKey(long processInstanceKey);
 
-  void deleteByProcessInstanceKeyIn(List<Long> keys);
+  @Modifying
+  @Query(value = "DELETE FROM VARIABLE e WHERE e.processInstanceKey IN (:keys)")
+  void deleteByProcessInstanceKeyIn(@Param("keys") List<Long> keys);
 }
