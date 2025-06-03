@@ -1,12 +1,13 @@
 package io.zeebe.monitor.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import io.zeebe.monitor.entity.ElementInstanceEntity;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ElementInstanceRepositoryTest extends ZeebeRepositoryTest {
 
