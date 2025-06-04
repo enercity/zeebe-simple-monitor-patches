@@ -25,7 +25,8 @@
 
         <querydsl.version>5.1.0</querydsl.version>
 
-        <spring.boot.version>3.4.2</spring.boot.version>
+        <!-- Fix CVE-2025-22235 -->
+        <spring.boot.version>3.4.5</spring.boot.version>
         <!-- pin Hazelcast version because of spring-boot-dependencies -->
         <version.hazelcast>5.5.0</version.hazelcast>
 
@@ -89,6 +90,25 @@
                 <version>2.3.232</version>
             </dependency>
 
+            <!--
+            Fix CVE-2025-48734
+            -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.11.0</version>
+            </dependency>
+            <!--
+            Fix CVE-2025-31651
+            Fix CVE-2025-31650
+            Fix CVE-2025-46701
+            Fix CVE-2025-24813
+            -->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>11.0.7</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
