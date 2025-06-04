@@ -137,11 +137,12 @@ These patches may be applied on top of the named "target release branches." The 
 | `feature/compat-zeebe-8.5.9`                | obsolete   | update dependencies to current Zeebe 8.5.9                         | v2.8.1                                                |
 | `feature/redis-compat-8.5.9`                | unfinished | integrate Redis on top of Zeebe 8.5.9                              | v2.8.1                                                |
 | `feature/fix-CVE-2025-27820`                | active     | updates httpclient                                                 | v2.9.0                                                |
+| `feature/fix-instance-sorting`              | active     | fixes the sorting of the Process Instances on the Process view     | v2.9.0                                                |
 
 Features marked as "obsolete" have been included upstream, meanwhile. See the "target release branches" as well.
 
 Features marked as "active" still need to be integrated into our own "with-patches" releases. Features marked as "
-unfinished" are prood-of-concepts.
+unfinished" are proof-of-concepts.
 
 # Further reading
 
