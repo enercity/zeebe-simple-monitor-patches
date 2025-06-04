@@ -31,7 +31,11 @@ import io.zeebe.monitor.rest.dto.TimerDto;
 import jakarta.transaction.Transactional;
 import java.io.ByteArrayInputStream;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +43,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 @Controller
@@ -123,7 +129,7 @@ public class ProcessesViewController extends AbstractViewController {
 
     final Optional<ProcessEntity> latest =
         processRepository
-            .findByBpmnProcessIdContaining(process.getBpmnProcessId(), pageable)
+                .findByBpmnProcessIdContaining(process.getBpmnProcessId(), Pageable.unpaged())
             .stream()
             .max(Comparator.comparingInt(ProcessEntity::getVersion));
     model.put("latestProcessDefinition", toDto(latest.orElse(process)));
