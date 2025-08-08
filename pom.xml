@@ -32,10 +32,10 @@
         <version.hibernate.validator>8.0.2.Final</version.hibernate.validator>
 
         <!-- release parent settings -->
-        <version.java>17</version.java>
+        <version.java>24</version.java>
         <java.version>${version.java}</java.version>
 
-        <jib-maven-plugin.image>eclipse-temurin:23-jre</jib-maven-plugin.image>
+        <jib-maven-plugin.image>eclipse-temurin:24-jre</jib-maven-plugin.image>
 
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
