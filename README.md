@@ -136,6 +136,8 @@ These patches may be applied on top of the named "target release branches." The 
 | `feature/apt-plugin-deprecated`             | obsolete   | fix for the deprecated apt-maven-plugin (incompatible with JDK 23)    | v2.8.1                                                |
 | `feature/compat-zeebe-8.5.9`                | obsolete   | update dependencies to current Zeebe 8.5.9                            | v2.8.1                                                |
 | `feature/redis-compat-8.5.9`                | unfinished | integrate Redis on top of Zeebe 8.5.9                                 | v2.8.1                                                |
+| `feature/fix-tomcat-CVEs`                   | obsolete   | now part of `feature/dependency-updates`                              | v2.9.0                                                |
+| `feature/java-24`                           | obsolete   | now part of `feature/dependency-updates`                              | v2.9.0                                                | 
 | `feature/readonly-without-hazelcast`        | active     | allows a secondary Monitor to run without updating data via Hazelcast | v2.9.0                                                |
 | `feature/fix-instance-sorting`              | active     | fixes the sorting of the Process Instances on the Process view        | v2.9.0                                                |
 | `feature/dependency-updates`                | active     | fixes various CVEs in Tomcat and in Spring Boot, updates of the JDK   | v2.9.0                                                |
