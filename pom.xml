@@ -25,8 +25,13 @@
 
         <querydsl.version>5.1.0</querydsl.version>
 
-        <!-- Fix CVE-2025-22235 -->
-        <spring.boot.version>3.5.5</spring.boot.version>
+        <!-- Fix
+            CVE-2025-22235
+            CVE-2025-41249
+            CVE-2025-58057
+            CVE-2025-58056
+        -->
+        <spring.boot.version>3.5.6</spring.boot.version>
         <!-- pin Hazelcast version because of spring-boot-dependencies -->
         <version.hazelcast>5.5.0</version.hazelcast>
 
