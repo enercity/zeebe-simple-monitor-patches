@@ -30,8 +30,9 @@
             CVE-2025-41249
             CVE-2025-58057
             CVE-2025-58056
+            CVE-2025-66614
         -->
-        <spring.boot.version>3.5.6</spring.boot.version>
+        <spring.boot.version>3.5.13</spring.boot.version>
         <!-- pin Hazelcast version because of spring-boot-dependencies -->
         <version.hazelcast>5.5.0</version.hazelcast>
 
