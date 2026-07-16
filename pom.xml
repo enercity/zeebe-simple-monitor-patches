@@ -32,17 +32,17 @@
             CVE-2025-58056
             CVE-2025-66614
         -->
-        <spring.boot.version>3.5.13</spring.boot.version>
+        <spring.boot.version>3.5.16</spring.boot.version>
         <!-- pin Hazelcast version because of spring-boot-dependencies -->
         <version.hazelcast>5.5.0</version.hazelcast>
 
         <version.hibernate.validator>8.0.2.Final</version.hibernate.validator>
 
         <!-- release parent settings -->
-        <version.java>24</version.java>
+        <version.java>25</version.java>
         <java.version>${version.java}</java.version>
 
-        <jib-maven-plugin.image>eclipse-temurin:24-jre</jib-maven-plugin.image>
+        <jib-maven-plugin.image>eclipse-temurin:26-jre</jib-maven-plugin.image>
 
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
