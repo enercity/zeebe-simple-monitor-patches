@@ -122,8 +122,7 @@ public class ProcessesViewController extends AbstractViewController {
 
     final Optional<ProcessEntity> latest =
         processRepository
-            .findByBpmnProcessIdContaining(
-                process.getBpmnProcessId(), PageRequest.of(0, Integer.MAX_VALUE))
+                .findByBpmnProcessIdContaining(process.getBpmnProcessId(), Pageable.unpaged())
             .stream()
             .max(Comparator.comparingInt(ProcessEntity::getVersion));
     model.put("latestProcessDefinition", toDto(latest.orElse(process)));
