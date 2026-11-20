@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-@ConditionalOnProperty(name = "zeebe-importer", havingValue = "hazelcast", matchIfMissing = true)
+@ConditionalOnProperty(name = "zeebe-importer", havingValue = "hazelcast")
 @Component
 public class ZeebeHazelcastService {
 
