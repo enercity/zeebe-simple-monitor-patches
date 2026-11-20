@@ -4,7 +4,7 @@
 
     <groupId>io.zeebe</groupId>
     <artifactId>zeebe-simple-monitor</artifactId>
-    <version>2.9.0</version>
+    <version>2.9.1</version>
     <packaging>jar</packaging>
 
     <parent>
@@ -39,10 +39,10 @@
         <version.hibernate.validator>8.0.2.Final</version.hibernate.validator>
 
         <!-- release parent settings -->
-        <version.java>26</version.java>
+        <version.java>27</version.java>
         <java.version>${version.java}</java.version>
 
-        <jib-maven-plugin.image>eclipse-temurin:26-jre</jib-maven-plugin.image>
+        <jib-maven-plugin.image>eclipse-temurin:27-jre</jib-maven-plugin.image>
 
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -112,7 +112,7 @@
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
-                <version>42.7.11</version>
+                <version>42.7.14</version>
                 <scope>compile</scope>
             </dependency>
 
