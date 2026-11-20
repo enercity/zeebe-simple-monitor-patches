@@ -16,10 +16,14 @@
 package io.zeebe.monitor.repository;
 
 import io.zeebe.monitor.entity.ErrorEntity;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface ErrorRepository
     extends PagingAndSortingRepository<ErrorEntity, Long>, CrudRepository<ErrorEntity, Long> {
@@ -27,4 +31,8 @@ public interface ErrorRepository
   Page<ErrorEntity> findByProcessInstanceKey(long processInstanceKey, Pageable pageable);
 
   long countByProcessInstanceKey(long processInstanceKey);
+
+  @Modifying
+  @Query(value = "DELETE FROM ERROR e WHERE e.processInstanceKey IN (:keys)")
+  void deleteByProcessInstanceKeyIn(@Param("keys") List<Long> keys);
 }
