@@ -55,14 +55,12 @@ This repository maintains
 
 See this example:
 
-- there's some work done in `upstream` which leads to release `v2.7.2`
-- we create a `release/official/v2.7.2` branch on that tag
-- as well as a `release/v2.7.2-with-patches` branch on that tag
+- there's some work done in `upstream` which leads to release `v2.9.6`
+- we create a `release/upstream/v2.9.6` branch on that tag
+- as well as a `release/v2.9.6-with-patches` branch on that tag
 - we develop some `feature/`s on top of the official branch
-- we merge these `feature` branches into our `release/-with-patches` branch
-- we release from that `release/` branch.
-
-Additional branches to try out things are possible.
+- we merge these `feature` branches into our `release/v2.9.6-with-patches` branch
+- we release from that `release/v2.9.6-with-patches` branch.
 
 ```mermaid
 ---
@@ -73,23 +71,23 @@ gitGraph
   commit
   commit
   commit tag: "v2.7.2"
-  branch release/official/v2.7.2
+  branch release/upstream/v2.7.2
   commit tag: "v2.7.2"
   checkout main
   commit
-  checkout release/official/v2.7.2
+  checkout release/upstream/v2.7.2
   branch feature/auto-delete-old-process-instances
   commit
   commit
-  checkout release/official/v2.7.2
+  checkout release/upstream/v2.7.2
   branch feature/search-processes
   commit
-  checkout release/official/v2.7.2
+  checkout release/upstream/v2.7.2
   branch release/v2.7.2-with-patches
   merge feature/auto-delete-old-process-instances
   merge feature/search-processes
   commit tag: "v1.10.0 (example)"
-  checkout release/official/v2.7.2
+  checkout release/upstream/v2.7.2
   branch feature/redis-compat-8.5.9
   commit
   commit
@@ -97,6 +95,15 @@ gitGraph
   branch release/v2.7.2-with-patches-for-redis
   merge feature/redis-compat-8.5.9
   commit tag: "v2.0.0-dev0 (example)"
+  checkout main
+  commit
+  commit
+  commit tag: "v2.9.6"
+  branch release/upstream/v2.9.6
+  branch release/v2.9.6-with-patches
+  checkout release/v2.9.6-with-patches
+  merge feature/auto-delete-old-process-instances
+  commit tag: "v2.10.0-dev0 (example)"
 ```  
 
 ## What workflow do we use to patch and release the monitor?
@@ -130,7 +137,7 @@ These patches may be applied on top of the named "target release branches." The 
 
 | Branch                                      | Status     | Description                                                           | Target release branch <br/>`release/...-with-patches` |
 |---------------------------------------------|------------|-----------------------------------------------------------------------|-------------------------------------------------------|
-| `feature/auto-delete-old-process-instances` | active     | delete old process instances from database.                           | v2.7.2, v2.8.1, v2.9.0                                |
+| `feature/auto-delete-old-process-instances` | active     | delete old process instances from database.                           | v2.7.2, v2.8.1, v2.9.0, v2.9.6                        |
 | `feature/importer-metrics`                  | obsolete   | Collect metrics about the import process                              | v2.7.2                                                |
 | `feature/search-processes`                  | obsolete   | server side search for processes                                      | v2.7.2                                                |
 | `feature/apt-plugin-deprecated`             | obsolete   | fix for the deprecated apt-maven-plugin (incompatible with JDK 23)    | v2.8.1                                                |
@@ -138,14 +145,14 @@ These patches may be applied on top of the named "target release branches." The 
 | `feature/redis-compat-8.5.9`                | unfinished | integrate Redis on top of Zeebe 8.5.9                                 | v2.8.1                                                |
 | `feature/fix-tomcat-CVEs`                   | obsolete   | now part of `feature/dependency-updates`                              | v2.9.0                                                |
 | `feature/java-24`                           | obsolete   | now part of `feature/dependency-updates`                              | v2.9.0                                                | 
-| `feature/readonly-without-hazelcast`        | active     | allows a secondary Monitor to run without updating data via Hazelcast | v2.9.0                                                |
-| `feature/fix-instance-sorting`              | active     | fixes the sorting of the Process Instances on the Process view        | v2.9.0                                                |
-| `feature/dependency-updates`                | active     | fixes various CVEs in Tomcat and in Spring Boot, updates of the JDK   | v2.9.0                                                |
+| `feature/readonly-without-hazelcast`        | active     | allows a secondary Monitor to run without updating data via Hazelcast | v2.9.0, v2.9.6                                        |
+| `feature/fix-instance-sorting`              | active     | fixes the sorting of the Process Instances on the Process view        | v2.9.0, v2.9.6                                        |
+| `feature/dependency-updates`                | active     | fixes various CVEs in Tomcat and in Spring Boot, updates of the JDK   | v2.9.0, v2.9.6                                        |
 
 Features marked as "obsolete" have been included upstream, meanwhile. See the "target release branches" as well.
 
-Features marked as "active" still need to be integrated into our own "with-patches" releases. Features marked as "
-unfinished" are proof-of-concepts.
+Features marked as "active" still need to be integrated into our own "with-patches" releases. Features marked as 
+"unfinished" are proof-of-concepts.
 
 # Further reading
 
